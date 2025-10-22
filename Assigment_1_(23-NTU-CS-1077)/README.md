@@ -85,9 +85,10 @@ A short press toggles the LED, and a long press activates a buzzer. The OLED sho
 
 ---
 
-## 📄 Project Report (PDF)
-A detailed project report is included:  
-👉 [Download Assignment 1 Report (PDF)](./"D:\5th\IoT\CS-B-1077\Assigment_1_(23-NTU-CS-1077)\Assigment_1(Desciption,Handwritten code and diagrams, Wokwi link , Gihub Link).pdf")
+
+##  Submitted PDF  
+A compiled report is also included in this folder:  
+**`Assignment_1_Report.pdf`**
 
 ---
 
