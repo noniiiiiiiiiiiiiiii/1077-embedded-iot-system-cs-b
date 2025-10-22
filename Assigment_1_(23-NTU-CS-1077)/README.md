@@ -1,19 +1,19 @@
 # Assignment 1 – Embedded IoT Systems  
-**Name:** Umar Mushtaq  
+**Name:** Muhammad Umar Mushtaq  
 **Reg No:** 23-NTU-CS-1077  
-**Course:** Embedded IoT  
-**Instructor:** [Your Instructor Name]  
-**Date:** 24-Oct-2025  
+**Course:** Embedded IoT Systems  
+**Instructor:** Nasir Mehmood  
+**Date:** 25-Oct-2025  
 
 ---
 
-## 📘 Overview
-This assignment contains **two ESP32-based projects** developed and tested on **Wokwi Simulator**.  
+## 🧭 Overview
+This assignment contains **two ESP32-based projects** developed and tested on the **Wokwi Simulator**.  
 Both projects demonstrate hardware interfacing, sensor input handling, and OLED-based visual feedback.
 
 ---
 
-## Task 1 – Multi-Device Control using ESP32 (LEDs, Buttons, Buzzer & OLED)
+## 🔹 Task 1 – Multi-Device Control using ESP32 (LEDs, Buttons, Buzzer & OLED)
 
 **Description:**  
 ESP32 controls three LEDs, two buttons, and a buzzer with visual messages on an OLED.  
@@ -45,17 +45,17 @@ Buttons toggle LEDs and buzzer states, and OLED updates accordingly in real-time
 🔗 [View Simulation on Wokwi](https://wokwi.com/projects/445223337931397121)
 
 **Screenshots:**  
+![Task 1 Output](./Task_01/Task_1%20Output.png)  
+![Task 1 Wokwi](./Task_01/Task_1%20wokwi%20Image%20.png)  
+![Task 1 Hardware](./Task_01/Hardware%20Image.jpg)
 
-1-"D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_01\Task_1 Output.png"
-2-"D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_01\Task_1 wokwi Image .png"
-3-"D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_01\Hardware Image.jpg"
 ---
 
-## Task 2 – Button Press Duration Detection (Short / Long Press with OLED)
+## 🔹 Task 2 – Button Press Duration Detection (Short / Long Press with OLED)
 
 **Description:**  
-This task detects short and long button presses using the ESP32.  
-Short press toggles LED, and long press activates a buzzer. OLED shows the feedback.
+This task detects **short and long button presses** using the ESP32.  
+A short press toggles the LED, and a long press activates a buzzer. The OLED shows the feedback.
 
 **Components Used:**
 - ESP32 DevKitC V4  
@@ -79,10 +79,15 @@ Short press toggles LED, and long press activates a buzzer. OLED shows the feedb
 🔗 [View Simulation on Wokwi](https://wokwi.com/projects/445224971914989569)
 
 **Screenshots:**  
-![1-("D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_02\Task_02 Ouput.png")
-2-"D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_02\Task_2 Wokwi Image .png"
-3-"D:\5th\IoT\CS-B-1077\Assigment_1 23-NTU-CS-1077\Task_02\Kit Image.jpg"
+![Task 2 Output](./Task_02/Task_02%20Ouput.png)  
+![Task 2 Wokwi](./Task_02/Task_2%20Wokwi%20Image%20.png)  
+![Task 2 Hardware](./Task_02/Kit%20Image.jpg)
+
 ---
 
+## 📄 Project Report (PDF)
+A detailed project report is included:  
+👉 [Download Assignment 1 Report (PDF)](./"D:\5th\IoT\CS-B-1077\Assigment_1_(23-NTU-CS-1077)\Assigment_1(Desciption,Handwritten code and diagrams, Wokwi link , Gihub Link).pdf")
 
+---
 
