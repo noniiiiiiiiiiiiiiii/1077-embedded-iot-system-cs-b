@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ESP32 Radar Dashboard (MQTT)</title>
+  <style>canvas{background:#002200; display:block; margin:10px auto;} body{color:#ddd; background:#111; font-family:Arial}</style>
+</head>
+<body>
+  <h2 style="text-align:center">ESP32 Radar Dashboard</h2>
+  <canvas id="radar" width="500" height="500"></canvas>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script>
+    const canvas = document.getElementById('radar');
+    const ctx = canvas.getContext('2d');
+    const cx = canvas.width/2, cy = canvas.height/2 + 120;
+    const maxDist = 300; // scale to match ESP32
+    // connect to HiveMQ public broker via WebSocket
+    const client = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
+    client.on('connect', () => {
+      console.log('MQTT connected');
+      client.subscribe('wokwi/esp32/radar');
+    });
+    client.on('message', (topic, message) => {
+      try {
+        const obj = JSON.parse(message.toString());
+        const angle = obj.angle;
+        const dist = obj.distance;
+        drawFrame(angle, dist);
+      } catch(e){ console.error(e) }
+    });
+
+    function clearRadar(){
+      ctx.fillStyle = "#002200";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+    function drawFrame(angle,dist){
+      // simple persistent points + sweep visual
+      // draw grid
+      clearRadar();
+      ctx.strokeStyle = "#004400";
+      for (let r=50; r<=200; r+=50){
+        ctx.beginPath(); ctx.arc(cx,cy, r, Math.PI, Math.PI*1.5); ctx.stroke();
+      }
+      // draw point
+      const r = Math.min(dist, maxDist) * 180 / maxDist; // scale
+      const rad = (angle - 90) * Math.PI/180;
+      const x = cx + r * Math.cos(rad);
+      const y = cy - r * Math.sin(rad);
+      ctx.fillStyle = "#00ff66";
+      ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();
+
+      // info
+      ctx.fillStyle = "#ddd";
+      ctx.fillText("Angle: " + angle + "°", 10, 20);
+      ctx.fillText("Distance: " + dist + " cm", 10, 38);
+    }
+  </script>
+</body>
+</html>

@@ -76,10 +76,10 @@ A short press toggles the LED, and a long press activates a buzzer. The OLED sho
 | OLED SCL | SCL | GPIO 22 |
 
 **Wokwi Project Link:**  
-🔗 [View Simulation on Wokwi](https://wokwi.com/projects/445776781415259137)
+🔗 [View Simulation on Wokwi](https://wokwi.com/projects/445899618251465729)
 
 **Screenshots:**  
-![Task 2 Output](./Task_02/Task_02%20Ouput.png)  
+![Task 2 Output](./"D:\5th\IoT\CS-B-1077\Assigment_1_(23-NTU-CS-1077)\Task_01\Hardware Image.jpg")  
 ![Task 2 Wokwi](./Task_02/Task_2%20Wokwi%20Image%20.png)  
 ![Task 2 Hardware](./Task_02/Kit%20Image.jpg)
 

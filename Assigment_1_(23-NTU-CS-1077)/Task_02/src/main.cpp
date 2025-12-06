@@ -1,6 +1,5 @@
 /*
-  Project: Button Press Detection (Short/Long Press)
-  Name: Umar Mushtaq
+  Project: Button Press Detection (Short/Long Press) 
   Reg No: 23-NTU-CS-1077
   Date: 19-Oct-2025
 */
@@ -11,58 +10,75 @@
 #include <Adafruit_SSD1306.h>
 
 // --- Pin Definitions ---
-#define BTN 27       // Button pin
-#define LED 2        // LED pin
-#define BUZZER 15   // Buzzer pin
+#define BTN 25        // Button pin
+#define LED 5        // LED pin
+#define BUZZER 18     // Buzzer pin
 
 // --- OLED Display Setup (I2C) ---
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 // --- Variables ---
-bool ledState = false;           // to store LED ON/OFF state
-unsigned long pressTime = 0;     // to store the time when button is pressed
-bool pressed = false;            // flag to check button press status
+volatile bool buttonPressed = false;       // Flag from interrupt
+unsigned long pressStartTime = 0;          // When button pressed
+bool ledState = false;                     // LED state
 
 // --- Function to show text on OLED ---
 void showText(String msg) {
-  display.clearDisplay();         // clear old text
+  display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
-  display.setCursor(0, 20);       // position for message
-  display.println(msg);           // print message
-  display.display();              // update OLED screen
+  display.setCursor(0, 20);
+  display.println(msg);
+  display.display();
+}
+
+// --- Interrupt Service Routine for Button Press ---
+void IRAM_ATTR handleButton() {
+  static unsigned long lastInterrupt = 0;
+  unsigned long currentTime = millis();
+
+  // --- Simple debounce ---
+  if (currentTime - lastInterrupt > 200) {
+    buttonPressed = true;          // Set flag for main loop
+    lastInterrupt = currentTime;
+  }
 }
 
 void setup() {
-  pinMode(BTN, INPUT_PULLUP);     // button as input with internal pull-up
-  pinMode(LED, OUTPUT);           // LED as output
-  pinMode(BUZZER, OUTPUT);        // buzzer as output
+  pinMode(BTN, INPUT_PULLUP);      // Button input with internal pull-up
+  pinMode(LED, OUTPUT);            // LED output
+  pinMode(BUZZER, OUTPUT);         // Buzzer output
 
-  // --- Initialize the OLED Display ---
+  // --- OLED Initialization ---
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  showText("Ready...");           // startup message
+  showText("Ready...");
+
+  // --- Attach interrupt (only on button press) ---
+  attachInterrupt(digitalPinToInterrupt(BTN), handleButton, FALLING);
 }
 
 void loop() {
-  // --- Check if button is pressed down ---
-  if (digitalRead(BTN) == LOW && !pressed) {
-    pressed = true;               // mark button as pressed
-    pressTime = millis();         // save press start time
-  }
+  // --- When button interrupt occurs ---
+  if (buttonPressed) {
+    buttonPressed = false;
 
-  // --- Check if button is released ---
-  if (digitalRead(BTN) == HIGH && pressed) {
-    unsigned long duration = millis() - pressTime;   // calculate how long it was held
-    pressed = false;              // reset press flag
+    // Wait until button is released to measure duration
+    pressStartTime = millis();
+    while (digitalRead(BTN) == LOW) {
+      delay(10); // wait for release
+    }
+    unsigned long pressDuration = millis() - pressStartTime;
 
-    // --- Long Press Detection (>1.5s) ---
-    if (duration > 1500) {
-      tone(BUZZER, 1000, 500);    // play buzzer tone
+    // --- Long Press Detection (>1.5 sec) ---
+    if (pressDuration > 1500) {
+      tone(BUZZER, 1000, 500);
       showText("Long Press → Buzzer");
-    } 
+       delay(1000);  //  Hold message for 1 sec
+      noTone(BUZZER);
+    }
     // --- Short Press Detection ---
     else {
-      ledState = !ledState;       // toggle LED state
+      ledState = !ledState;
       digitalWrite(LED, ledState);
       showText("Short Press → LED Toggle");
     }
