@@ -72,5 +72,5 @@ It provides a simple and practical approach to IoT-based monitoring systems.
 ---
 
 ## Author
-Name: **Your Name Here**  
-Course: Internet of Things (IoT)
+Name: **Muhammad Umar Mushtaq**  
+Course: Internet of Things and Embedded System
